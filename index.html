@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saketh Papareddy — ML Engineer</title>
+  <meta name="description" content="ML Engineer building AI systems — RAG pipelines, forecasting models, and recommendation engines. MS in AI at UNT." />
+  <meta property="og:title" content="Saketh Papareddy — ML Engineer" />
+  <meta property="og:description" content="ML Engineer building AI systems — RAG pipelines, forecasting models, and recommendation engines." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>S</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off: #fafaf9;
+      --sand: #f5f4f1;
+      --ink: #0f0f0f;
+      --ink-2: #333333;
+      --ink-3: #71717a;
+      --accent: #2563eb;
+      --accent-soft: #eff6ff;
+      --green: #16a34a;
+      --green-soft: #f0fdf4;
+      --border: #e4e4e7;
+      --border-2: #d4d4d8;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow: 0 4px 16px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--white); color: var(--ink);
+      line-height: 1.6; -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--accent); color: white; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5%, 3rem); height: 64px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 0.92rem; font-weight: 700;
+      color: var(--ink); text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-center { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-center a {
+      color: var(--ink-3); text-decoration: none;
+      font-size: 0.82rem; font-weight: 500;
+      transition: color 0.15s; position: relative;
+    }
+    .nav-center a:hover { color: var(--ink); }
+    .nav-center a.active { color: var(--ink); }
+    .nav-center a.active::after {
+      content: ''; position: absolute;
+      bottom: -20px; left: 0; right: 0;
+      height: 1.5px; background: var(--ink);
+    }
+    .nav-right { display: flex; gap: 0.6rem; align-items: center; }
+    .nav-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.42rem 0.9rem; border-radius: 7px;
+      font-size: 0.78rem; font-weight: 600;
+      text-decoration: none; transition: all 0.15s; cursor: pointer;
+    }
+    .nav-btn-ghost { color: var(--ink-2); background: transparent; border: 1px solid var(--border); }
+    .nav-btn-ghost:hover { background: var(--off); border-color: var(--border-2); }
+    .nav-btn-fill { color: #fff; background: var(--ink); border: 1px solid var(--ink); }
+    .nav-btn-fill:hover { opacity: 0.85; }
+
+    /* mobile menu */
+    .nav-hamburger {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 4px; color: var(--ink);
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 64px; left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem; z-index: 99;
+      box-shadow: var(--shadow);
+    }
+    .mobile-menu.open { display: flex; flex-direction: column; gap: 0.1rem; }
+    .mobile-menu a {
+      display: block; padding: 0.75rem 0;
+      color: var(--ink-2); text-decoration: none;
+      font-size: 0.95rem; font-weight: 500;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border: none; }
+    .mobile-menu-btns { display: flex; gap: 0.5rem; margin-top: 1rem; }
+
+    /* ─── SECTION DEFAULTS ─── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.5rem, 5%, 3rem); }
+    section { padding: 100px 0; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.14em;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .section-label::before {
+      content: ''; width: 18px; height: 1.5px;
+      background: var(--accent);
+    }
+
+    /* ─── HERO ─── */
+    .hero { padding-top: 110px; padding-bottom: 60px; }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 280px;
+      gap: 4rem; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--green-soft); color: var(--green);
+      border-radius: 100px; padding: 0.32rem 0.9rem;
+      font-size: 0.76rem; font-weight: 600;
+      margin-bottom: 1.5rem; width: fit-content;
+      border: 1px solid rgba(22,163,74,0.15);
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 3px rgba(22,163,74,0.15);
+      animation: pulse 2s infinite;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 700; letter-spacing: -2px;
+      line-height: 1.0; margin-bottom: 1.2rem;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--ink-3);
+      max-width: 500px; line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .hero-cta { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 3rem; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.72rem 1.4rem; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--ink); color: #fff; }
+    .btn-primary:hover { background: #2a2a2a; transform: translateY(-1px); box-shadow: var(--shadow); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: var(--off); border-color: var(--border-2); transform: translateY(-1px); }
+
+    /* hero photo */
+    .hero-photo {
+      width: 260px; height: 320px;
+      border-radius: 20px; overflow: hidden;
+      border: 2px solid var(--border);
+      background: var(--sand);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .hero-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .photo-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0.5rem;
+      color: var(--ink-3); font-size: 0.78rem;
+    }
+    .photo-placeholder svg { opacity: 0.35; }
+
+    /* hero stats */
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-stat {
+      padding: 1.1rem 1.4rem;
+      border-right: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat:hover { background: var(--off); }
+    .stat-val {
+      font-size: 1.65rem; font-weight: 800;
+      letter-spacing: -1px; color: var(--ink); line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 0.7rem; color: var(--ink-3);
+      font-weight: 500; margin-top: 0.3rem;
+    }
+
+    /* ─── NARRATIVE / STORY ─── */
+    .story { padding: 70px 0; background: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .story-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .story-text h2 {
+      font-size: 1.8rem; font-weight: 800;
+      letter-spacing: -1px; line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .story-text p {
+      font-size: 0.95rem; color: var(--ink-2);
+      line-height: 1.8; margin-bottom: 1rem;
+    }
+    .story-text p strong { color: var(--ink); }
+    .story-aside { display: flex; flex-direction: column; gap: 0.8rem; }
+    .fact-card {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem; background: var(--white);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+    .fact-card:hover { border-color: var(--border-2); box-shadow: var(--shadow-sm); transform: translateX(4px); }
+    .fact-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .fact-icon.blue { background: var(--accent-soft); }
+    .fact-icon.green { background: var(--green-soft); }
+    .fact-icon.sand { background: #fef3c7; }
+    .fact-label { font-size: 0.78rem; color: var(--ink-3); }
+    .fact-value { font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+
+    /* ─── SKILLS ─── */
+    .skills-section { background: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .skill-card {
+      padding: 1.4rem; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: all 0.25s; position: relative;
+      background: var(--white);
+    }
+    .skill-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-sm);
+      transform: translateY(-2px);
+    }
+    .skill-card-header {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 0.9rem;
+    }
+    .skill-card-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.95rem;
+    }
+    .skill-card-icon.i1 { background: #dbeafe; }
+    .skill-card-icon.i2 { background: #fce7f3; }
+    .skill-card-icon.i3 { background: #e0e7ff; }
+    .skill-card-icon.i4 { background: #ccfbf1; }
+    .skill-card-title {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--ink-3);
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .skill-tag {
+      padding: 0.28rem 0.6rem; border-radius: 5px;
+      font-size: 0.76rem; font-weight: 500;
+      background: var(--off); color: var(--ink-2);
+      border: 1px solid transparent;
+      transition: all 0.15s;
+    }
+    .skill-card:hover .skill-tag { border-color: var(--border); background: var(--white); }
+
+    /* ─── PROJECTS ─── */
+    .projects-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+    .project-card {
+      display: grid; grid-template-columns: 300px 1fr;
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      overflow: hidden; transition: all 0.3s;
+      background: var(--white);
+    }
+    .project-card:hover {
+      border-color: var(--border-2);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+    .project-visual {
+      background: var(--sand); padding: 1.5rem;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      gap: 1rem; position: relative;
+      border-right: 1px solid var(--border);
+      min-height: 260px;
+    }
+    .project-visual .arch-diagram {
+      width: 100%; display: flex; flex-direction: column;
+      align-items: center; gap: 0.5rem;
+    }
+    .arch-node {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.4rem 0.8rem; border-radius: 6px;
+      font-size: 0.68rem; font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      width: 85%; text-align: center;
+    }
+    .arch-node.input { background: #dbeafe; color: #1d4ed8; }
+    .arch-node.process { background: #e0e7ff; color: #4338ca; }
+    .arch-node.model { background: #fce7f3; color: #be185d; }
+    .arch-node.output { background: #ccfbf1; color: #0d9488; }
+    .arch-arrow { color: var(--ink-3); font-size: 0.7rem; }
+    .project-content { padding: 1.8rem 2rem; }
+    .project-cat {
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--accent); margin-bottom: 0.5rem;
+    }
+    .project-title {
+      font-size: 1.2rem; font-weight: 800;
+      letter-spacing: -0.5px; margin-bottom: 0.6rem;
+    }
+    .project-desc {
+      font-size: 0.88rem; color: var(--ink-3);
+      line-height: 1.65; margin-bottom: 1.2rem;
+    }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 1.2rem; }
+    .p-tag {
+      padding: 0.22rem 0.55rem; border-radius: 4px;
+      font-size: 0.7rem; font-weight: 500;
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--sand); color: var(--ink-3);
+    }
+    .project-metrics-row { display: flex; gap: 1.5rem; margin-bottom: 1.2rem; }
+    .p-metric { display: flex; flex-direction: column; }
+    .p-metric-val {
+      font-size: 1.3rem; font-weight: 800;
+      color: var(--accent); letter-spacing: -0.5px; line-height: 1;
+    }
+    .p-metric-lbl { font-size: 0.68rem; color: var(--ink-3); margin-top: 0.2rem; }
+    .project-actions { display: flex; gap: 0.5rem; }
+    .p-link {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.4rem 0.85rem; border-radius: 6px;
+      font-size: 0.78rem; font-weight: 600;
+      text-decoration: none; transition: all 0.15s;
+    }
+    .p-link-primary { background: var(--ink); color: #fff; }
+    .p-link-primary:hover { background: #2a2a2a; }
+    .p-link-ghost { border: 1px solid var(--border); color: var(--ink-2); }
+    .p-link-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* ─── EDUCATION ─── */
+    .edu-section { background: var(--sand); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .edu-timeline { display: flex; flex-direction: column; gap: 1.2rem; max-width: 700px; }
+    .edu-item {
+      display: grid; grid-template-columns: 180px 1fr;
+      gap: 2rem; padding: 1.4rem 1.6rem;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: all 0.2s;
+    }
+    .edu-item:hover { border-color: var(--border-2); box-shadow: var(--shadow-sm); transform: translateX(4px); }
+    .edu-when { font-size: 0.78rem; color: var(--ink-3); font-weight: 500; padding-top: 2px; }
+    .edu-degree { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.15rem; }
+    .edu-school { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin-bottom: 0.15rem; }
+    .edu-extra { font-size: 0.78rem; color: var(--ink-3); }
+    .leader-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.2rem 1.6rem; background: var(--white);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      margin-top: 1.2rem; max-width: 700px;
+      transition: all 0.2s;
+    }
+    .leader-item:hover { border-color: var(--border-2); box-shadow: var(--shadow-sm); }
+    .leader-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .leader-text h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .leader-text p { font-size: 0.82rem; color: var(--ink-3); line-height: 1.6; }
+
+    /* ─── CONTACT ─── */
+    .contact-section { text-align: center; }
+    .contact-section h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900; letter-spacing: -2px;
+      margin-bottom: 0.75rem;
+    }
+    .contact-sub {
+      font-size: 1rem; color: var(--ink-3);
+      max-width: 420px; margin: 0 auto 2.5rem auto;
+      line-height: 1.7;
+    }
+    .contact-cards { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .c-card {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.8rem 1.4rem; border-radius: 10px;
+      font-size: 0.875rem; font-weight: 500;
+      text-decoration: none; transition: all 0.2s;
+      border: 1px solid var(--border); color: var(--ink-2);
+    }
+    .c-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--border-2); }
+    .c-card.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .c-card.primary:hover { background: #2a2a2a; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center; padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--ink-3);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 3px rgba(22,163,74,0.15); }
+      50% { box-shadow: 0 0 0 6px rgba(22,163,74,0.05); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.6s cubic-bezier(.22,1,.36,1), transform 0.6s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.vis { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: 0.08s; }
+    .reveal.d2 { transition-delay: 0.16s; }
+    .reveal.d3 { transition-delay: 0.24s; }
+    .reveal.d4 { transition-delay: 0.32s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero-photo { display: none; }
+      .story-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-visual { min-height: 160px; border-right: none; border-bottom: 1px solid var(--border); }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .edu-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-center { display: none; }
+      .nav-right .nav-btn { display: none; }
+      .nav-hamburger { display: block; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .hero-stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-stat:last-child { border-bottom: none; }
+      .project-metrics-row { flex-wrap: wrap; }
+    }
+    @media (min-width: 601px) {
+      .nav-hamburger { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a class="nav-logo" href="#">Saketh Papareddy</a>
+  <ul class="nav-center">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="Saketh_Papareddy_Resume.docx" download class="nav-btn nav-btn-ghost">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Resume
+    </a>
+    <a href="mailto:sakethpapareddy@gmail.com" class="nav-btn nav-btn-fill">Hire me</a>
+  </div>
+  <button class="nav-hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="mobile-menu">
+  <a href="#about" onclick="this.parentElement.classList.remove('open')">About</a>
+  <a href="#skills" onclick="this.parentElement.classList.remove('open')">Skills</a>
+  <a href="#projects" onclick="this.parentElement.classList.remove('open')">Projects</a>
+  <a href="#education" onclick="this.parentElement.classList.remove('open')">Education</a>
+  <a href="#contact" onclick="this.parentElement.classList.remove('open')">Contact</a>
+  <div class="mobile-menu-btns">
+    <a href="Saketh_Papareddy_Resume.docx" download class="nav-btn nav-btn-ghost" style="flex:1;justify-content:center">Resume</a>
+    <a href="mailto:sakethpapareddy@gmail.com" class="nav-btn nav-btn-fill" style="flex:1;justify-content:center">Hire me</a>
+  </div>
+</div>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge reveal"><span class="dot"></span> Open to opportunities</div>
+        <h1 class="reveal d1">Saketh<br>Papareddy</h1>
+        <p class="hero-sub reveal d2">
+          ML Engineer focused on building AI systems — RAG pipelines, forecasting models, and recommendation engines.
+        </p>
+        <div class="hero-cta reveal d3">
+          <a href="#projects" class="btn btn-primary">
+            View projects
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="Saketh_Papareddy_Resume.docx" download class="btn btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download resume
+          </a>
+        </div>
+
+      </div>
+
+      <div class="hero-photo reveal d3">
+        <!-- Replace this with your actual photo: <img src="photo.jpg" alt="Saketh Papareddy" /> -->
+        <div class="photo-placeholder">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
+          <span>Add your photo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STORY (the narrative) ─── -->
+<section class="story" id="about">
+  <div class="container">
+    <div class="story-inner">
+      <div class="story-text reveal">
+        <div class="section-label">About</div>
+        <h2>A bit about me.</h2>
+        <p>
+          I'm pursuing my <strong>MS in Artificial Intelligence</strong> at the University of North Texas. I enjoy building ML systems — from data processing and model training to serving predictions through APIs.
+        </p>
+        <p>
+          I'm looking for <strong>ML Engineering, Data Science, or Applied AI</strong> roles where I can learn and contribute.
+        </p>
+      </div>
+      <div class="story-aside">
+        <div class="fact-card reveal d1">
+          <div class="fact-icon blue">&#127891;</div>
+          <div>
+            <div class="fact-label">University</div>
+            <div class="fact-value">University of North Texas</div>
+          </div>
+        </div>
+        <div class="fact-card reveal d2">
+          <div class="fact-icon green">&#128205;</div>
+          <div>
+            <div class="fact-label">Location</div>
+            <div class="fact-value">Denton, TX</div>
+          </div>
+        </div>
+        <div class="fact-card reveal d3">
+          <div class="fact-icon sand">&#128197;</div>
+          <div>
+            <div class="fact-label">Graduation</div>
+            <div class="fact-value">May 2026</div>
+          </div>
+        </div>
+        <div class="fact-card reveal d4">
+          <div class="fact-icon blue">&#9729;&#65039;</div>
+          <div>
+            <div class="fact-label">Certification</div>
+            <div class="fact-value">Azure Fundamentals (AZ-900)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section class="skills-section" id="skills">
+  <div class="container">
+    <div class="section-label reveal">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card reveal d1">
+        <div class="skill-card-header">
+          <div class="skill-card-icon i1">&#128013;</div>
+          <div class="skill-card-title">Languages &amp; Data</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Scikit-learn</span>
+        </div>
+      </div>
+      <div class="skill-card reveal d2">
+        <div class="skill-card-header">
+          <div class="skill-card-icon i2">&#129504;</div>
+          <div class="skill-card-title">ML / Deep Learning</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">XGBoost</span>
+          <span class="skill-tag">LSTMs</span>
+          <span class="skill-tag">ARIMA</span>
+        </div>
+      </div>
+      <div class="skill-card reveal d3">
+        <div class="skill-card-header">
+          <div class="skill-card-icon i3">&#10024;</div>
+          <div class="skill-card-title">Generative AI</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">FAISS</span>
+          <span class="skill-tag">BM25</span>
+          <span class="skill-tag">Llama 3.3</span>
+          <span class="skill-tag">RAG</span>
+        </div>
+      </div>
+      <div class="skill-card reveal d4">
+        <div class="skill-card-header">
+          <div class="skill-card-icon i4">&#128640;</div>
+          <div class="skill-card-title">Deployment</div>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">Streamlit</span>
+          <span class="skill-tag">Spark</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">Projects</div>
+    <div class="projects-grid">
+
+      <!-- Project 1: RAG -->
+      <div class="project-card reveal">
+        <div class="project-visual">
+          <div class="arch-diagram">
+            <div class="arch-node input">PDF Document</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node process">FAISS + BM25 Retrieval</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node model">Llama 3.3 70B (Groq)</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node output">Grounded Answer</div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div class="project-cat">Generative AI</div>
+          <div class="project-title">RAG Pipeline with Hybrid Retrieval</div>
+          <div class="project-desc">A PDF question-answering app that uses FAISS and BM25 for retrieval, reranks results with a cross-encoder, and generates answers using Llama 3.3 70B via Groq.</div>
+          <div class="project-stack">
+            <span class="p-tag">LangChain</span>
+            <span class="p-tag">FAISS</span>
+            <span class="p-tag">BM25</span>
+            <span class="p-tag">Groq API</span>
+            <span class="p-tag">Streamlit</span>
+          </div>
+          <div class="project-metrics-row">
+            <div class="p-metric"><div class="p-metric-val">17x</div><div class="p-metric-lbl">Faster responses</div></div>
+            <div class="p-metric"><div class="p-metric-val">90%</div><div class="p-metric-lbl">Router accuracy</div></div>
+            <div class="p-metric"><div class="p-metric-val">100%</div><div class="p-metric-lbl">OOS rejection</div></div>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/Papareddy-saketh/RAG-Pipeline" target="_blank" class="p-link p-link-primary">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Sales -->
+      <div class="project-card reveal">
+        <div class="project-visual">
+          <div class="arch-diagram">
+            <div class="arch-node input">5 External Signals</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node process">Feature Pipeline</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node model">ARIMA + LSTM</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node output">FastAPI / Flask APIs</div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div class="project-cat">Time Series</div>
+          <div class="project-title">Store Sales Forecasting</div>
+          <div class="project-desc">Built ARIMA and LSTM models to forecast retail store sales using Kaggle data. Incorporated external signals like oil prices and holidays. Served predictions locally through FastAPI and Flask endpoints.</div>
+          <div class="project-stack">
+            <span class="p-tag">ARIMA</span>
+            <span class="p-tag">LSTM</span>
+            <span class="p-tag">TensorFlow</span>
+            <span class="p-tag">FastAPI</span>
+            <span class="p-tag">Flask</span>
+          </div>
+          <div class="project-metrics-row">
+            <div class="p-metric"><div class="p-metric-val">0.0722</div><div class="p-metric-lbl">ARIMA RMSE</div></div>
+            <div class="p-metric"><div class="p-metric-val">78.6%</div><div class="p-metric-lbl">Directional accuracy</div></div>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/Papareddy-saketh/Store-Sales-Forecasting" target="_blank" class="p-link p-link-primary">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3: Airbnb -->
+      <div class="project-card reveal">
+        <div class="project-visual">
+          <div class="arch-diagram">
+            <div class="arch-node input">213K+ User Records</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node process">500+ Engineered Features</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node model">XGBoost Classifier</div>
+            <div class="arch-arrow">&#8595;</div>
+            <div class="arch-node output">Top-5 Destinations</div>
+          </div>
+        </div>
+        <div class="project-content">
+          <div class="project-cat">Classification</div>
+          <div class="project-title">Airbnb New User Destination Prediction</div>
+          <div class="project-desc">Trained XGBoost and Gradient Boosting models on 213K+ Airbnb user records to predict their first booking destination. Engineered features from session logs and demographics. Built a Flask app to serve predictions locally.</div>
+          <div class="project-stack">
+            <span class="p-tag">XGBoost</span>
+            <span class="p-tag">Gradient Boosting</span>
+            <span class="p-tag">Flask</span>
+            <span class="p-tag">Scikit-learn</span>
+          </div>
+          <div class="project-metrics-row">
+            <div class="p-metric"><div class="p-metric-val">0.927</div><div class="p-metric-lbl">NDCG@5</div></div>
+            <div class="p-metric"><div class="p-metric-val">Top 15%</div><div class="p-metric-lbl">Kaggle</div></div>
+            <div class="p-metric"><div class="p-metric-val">500+</div><div class="p-metric-lbl">Features</div></div>
+          </div>
+          <div class="project-actions">
+            <a href="https://github.com/Papareddy-saketh/Airbnb-New-User-Prediction" target="_blank" class="p-link p-link-primary">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION ─── -->
+<section class="edu-section" id="education">
+  <div class="container">
+    <div class="section-label reveal">Education &amp; Leadership</div>
+    <div class="edu-timeline">
+      <div class="edu-item reveal d1">
+        <div class="edu-when">Expected May 2026</div>
+        <div>
+          <div class="edu-degree">MS in Artificial Intelligence</div>
+          <div class="edu-school">University of North Texas</div>
+          <div class="edu-extra">Deep Learning, Machine Learning, Neural Networks, Computer Vision</div>
+        </div>
+      </div>
+      <div class="edu-item reveal d2">
+        <div class="edu-when">Undergraduate</div>
+        <div>
+          <div class="edu-degree">B.Tech in Information Technology</div>
+          <div class="edu-school">NBKR Institute of Science &amp; Technology</div>
+          <div class="edu-extra">Vidyanagar, Andhra Pradesh, India</div>
+        </div>
+      </div>
+    </div>
+    <div class="leader-item reveal d3">
+      <div class="leader-icon">&#127942;</div>
+      <div class="leader-text">
+        <h4>Event Director — Inforium, NBKRIST</h4>
+        <p>Directed a department-wide technical event. Coordinated 10+ volunteers, managed vendor logistics, delivered to 200+ attendees on schedule.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact-section" id="contact">
+  <div class="container" style="text-align:center">
+    <div class="section-label reveal" style="justify-content:center">Contact</div>
+    <h2 class="reveal d1">Let's build something.</h2>
+    <p class="contact-sub reveal d2">Open to ML Engineering, Data Science, and Applied AI roles. Internship or full-time — let's talk.</p>
+    <div class="contact-cards reveal d3">
+      <a href="mailto:sakethpapareddy@gmail.com" class="c-card primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Email me
+      </a>
+      <a href="https://www.linkedin.com/in/saketh-papareddy/" target="_blank" class="c-card">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/Papareddy-saketh" target="_blank" class="c-card">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="Saketh_Papareddy_Resume.docx" download class="c-card">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>Saketh Papareddy &middot; 2026</footer>
+
+<script>
+  // ── Scroll reveal with stagger ──
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // ── Nav active link ──
+  const sects = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-center a');
+  window.addEventListener('scroll', () => {
+    let c = '';
+    sects.forEach(s => { if (scrollY >= s.offsetTop - 100) c = s.id; });
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + c);
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>
